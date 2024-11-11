@@ -10,15 +10,15 @@ phases:
     commands:
       - echo Starting build at `date`
       - echo Building the Docker image...          
-      - docker build -t codebuild-exercise:$VERSION .
+      - docker build -t codebuild-exercise:$IMAGE_TAG .
       - echo Running Docker image...
-      - docker run -d codebuild-exercise:$VERSION
+      - docker run -d codebuild-exercise:$IMAGE_TAG
       - echo Tagging Docker image...
-      - docker tag codebuild-exercise:$VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/codebuild-exercise:$VERSION
+      - docker tag codebuild-exercise:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/codebuild-exercise:$IMAGE_TAG
       
   post_build:
     commands:
       - echo Pushing Docker image...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/codebuild-exercise:$VERSION
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/codebuild-exercise:$IMAGE_TAG
       - echo Build completed at `date`
 
